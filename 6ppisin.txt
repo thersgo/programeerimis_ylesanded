@@ -1,0 +1,3 @@
+2025-10-16:
+	- python annab errori `=` puhul tingimuslauses
+	- `~` kasutatakse `XOR`/`==` jaoks digitaalloogikas
