@@ -1,3 +1,5 @@
+-- lua's entire source code is 600kb.
+-- it really just doesn't have built-ins for these.
 function print_arr(a)
 	io.write "{"
 	for i, v in ipairs(a) do
