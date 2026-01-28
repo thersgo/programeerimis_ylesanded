@@ -3,19 +3,21 @@
 --------------------------------------------------------------------------------
 
 local base_deck = {}
-
 for rank = 1, 13 do
-	for suit = 1, 4 do
-		table.insert(base_deck, rank)
-	end
+for suit = 1, 4 do
+	table.insert(base_deck, rank)
+end end
+
+-- one of the only missing parts of lua
+local function copy(old)
+	local new = {}
+	table.move(old, 1, #old, 1, new)
+	return new
 end
 
-new_deck = function()
-	-- copy
-	local d = {}
-	table.move(base_deck, 1, #base_deck, 1, d)
+local function new_deck()
+	local d = copy(base_deck)
 	
-	-- shuffle
 	for i = #d, 2, -1 do
 		local j = math.random(i)
 		d[i], d[j] = d[j], d[i]
@@ -27,9 +29,7 @@ end
 local deck = new_deck()
 
 function hit()
-	if #deck == 0 then
-		deck = new_deck()
-	end
+	if #deck == 0 then deck = new_deck() end
 	return table.remove(deck)
 end
 
@@ -52,12 +52,11 @@ end
 function show_hand(t)
 	local face = {["1"] = "A", ["11"] = "J", ["12"] = "Q", ["13"] = "K"}
 	
-	return table.concat(t, " "):gsub("%S+", face)
+	return table.concat(t, " "):gsub("%d+", face)
 end
 
 while true do
-	local player = {hit(), hit()}
-	local dealer = {hit(), hit()}
+	local player, dealer = {hit(), hit()}, {hit(), hit()}
 	
 	print("hand:", show_hand(player), total(player))
 	
@@ -84,7 +83,5 @@ while true do
 		break
 	end
 end
-
-
 
 --------------------------------------------------------------------------------

@@ -1,4 +1,3 @@
-
 pet = input("Nimeta lemmiklooma: ")
 
 print(pet[0])
